@@ -118,7 +118,7 @@ export const Employee = () => {
       </select>
       <input
         type="search"
-        className="btn btn-verde nvo-cliente"
+        className="btn btn-amarillo nvo-cliente"
         onChange={handleSearch}
         placeholder="Buscar"
       />
