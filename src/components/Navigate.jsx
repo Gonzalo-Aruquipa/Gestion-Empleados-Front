@@ -1,10 +1,11 @@
-import { Link} from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 
 export const Navigate = () => {
 
-  // const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
 
-  // if(!token) return null;
+  if(!token) return null;
   return (
     <aside className="sidebar col-3">
       <h2>Administración</h2>

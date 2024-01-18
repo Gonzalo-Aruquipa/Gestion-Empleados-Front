@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 export const NewEmployee = () => {
   const URL = "http://localhost:3000";
-  // const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
   const [deps, setDeps] = useState([]);
   const [employee, setEmployee] = useState({
@@ -49,6 +49,9 @@ export const NewEmployee = () => {
   useEffect(() => {
     getDeps();
   }, []);
+  if (!token) {
+    navigate("/login");
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();

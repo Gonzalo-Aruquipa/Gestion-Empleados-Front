@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 export const NewDepartment = () => {
   const URL = "http://localhost:3000";
-  // const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
   const [dep, setDep] = useState({
     name: "",
@@ -55,6 +55,9 @@ export const NewDepartment = () => {
       error.name = "El Nombre no puede ir vacío";
     }
     return error;
+  }
+  if (!token) {
+    navigate("/login");
   }
   return (
     <>

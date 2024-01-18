@@ -8,6 +8,8 @@ import { UpdateEmployee } from "./components/UpdateEmployee";
 import { Department } from "./components/Department";
 import { NewDepartment } from "./components/NewDepartment";
 import { UpdateDepartment } from "./components/UpdateDepartment";
+import { Login } from "./components/Login";
+import { Register } from "./components/Register";
 
 function App() {
 
@@ -26,6 +28,8 @@ function App() {
               <Route exact path="/departments" element={<Department/>} />
               <Route exact path="/create-dep" element={<NewDepartment/>} />
               <Route exact path="/update-dep/:id" element={<UpdateDepartment/>} />
+              <Route exact path="/login" element={<Login />} />
+              <Route exact path="/register" element={<Register />} />
               
             </Routes>
           </main>

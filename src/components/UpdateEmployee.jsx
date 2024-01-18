@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 export const UpdateEmployee = () => {
   const URL = "http://localhost:3000";
-  // const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
   const [deps, setDeps] = useState([]);
   const [employee, setEmployee] = useState({
@@ -89,6 +89,9 @@ export const UpdateEmployee = () => {
       error.cellphone = "Solo se permiten números";
     }
     return error;
+  }
+  if (!token) {
+    navigate("/login");
   }
   return (
     <>

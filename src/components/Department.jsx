@@ -9,8 +9,8 @@ export const Department = () => {
   const navigate = useNavigate();
   const URL = "http://localhost:3000";
 
-  // const token = localStorage.getItem("token");
-  const getClientes = async () => {
+  const token = localStorage.getItem("token");
+  const getDeps = async () => {
     try {
       const response = await axios.get(
         `${URL}/departments`
@@ -29,17 +29,16 @@ export const Department = () => {
   };
 
   useEffect(() => {
-    getClientes();
-    // if (token !== "") {
-    //   getClientes();
-    // } else {
-    //   navigate("/login");
-    // }
+    if (token !== "") {
+      getDeps();
+    } else {
+      navigate("/login");
+    }
   }, []);
 
-  // if (!token) {
-  //   navigate("/login");
-  // }
+  if (!token) {
+    navigate("/login");
+  }
 
   return (
     <>

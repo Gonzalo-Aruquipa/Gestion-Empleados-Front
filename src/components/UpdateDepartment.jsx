@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 export const UpdateDepartment = () => {
   const URL = "http://localhost:3000";
-  // const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
   const [dep, setDep] = useState({
     name: "",
@@ -46,7 +46,9 @@ export const UpdateDepartment = () => {
   useEffect(() => {
     getDep();
   }, []);
-  
+  if (!token) {
+    navigate("/login");
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
