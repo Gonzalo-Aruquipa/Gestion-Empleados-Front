@@ -141,7 +141,7 @@ export const NewEmployee = () => {
         <div className="campo">
           <label>Género:</label>
           <select name="gender" id="" onChange={(e) => handleChange(e)}>
-            <option value="Masculine">Másculino</option>
+            <option value="Masculine">Masculino</option>
             <option value="Female">Femenino</option>
           </select>
         </div>

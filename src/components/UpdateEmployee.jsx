@@ -150,7 +150,7 @@ export const UpdateEmployee = () => {
           <select name="gender" id="" 
           value={employee.gender}
           onChange={(e) => handleChange(e)}>
-            <option value="Masculine">Másculino</option>
+            <option value="Masculine">Masculino</option>
             <option value="Female">Femenino</option>
           </select>
         </div>
