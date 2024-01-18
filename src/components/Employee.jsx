@@ -11,7 +11,7 @@ export const Employee = () => {
 
 
   // const token = localStorage.getItem("token");
-  const getClientes = async () => {
+  const getEmployees = async () => {
     try {
       const response = await axios.get(`${URL}/employees`,
       //  {
@@ -29,7 +29,7 @@ export const Employee = () => {
   };
 
   useEffect(() => {
-    getClientes();
+    getEmployees();
     // if (token !== "") {
     //   getClientes();
     // } else {

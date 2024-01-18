@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
-export const NewEmployee = () => {
+import { useNavigate, useParams } from "react-router-dom";
+
+export const UpdateEmployee = () => {
   const URL = "http://localhost:3000";
   // const token = localStorage.getItem("token");
 
@@ -18,6 +19,8 @@ export const NewEmployee = () => {
   const [error, setError] = useState({});
   const navigate = useNavigate();
 
+  const {id}= useParams();
+
   let handleChange = (e) => {
     setEmployee({ ...employee, [e.target.name]: e.target.value });
     setError(validate({ ...employee, [e.target.name]: e.target.value }));
@@ -27,18 +30,17 @@ export const NewEmployee = () => {
     const response = await axios.get(`${URL}/departments`);
     setDeps(response.data);
   };
+  const getEmployee = async () => {
+    const response = await axios.get(`${URL}/employees/${id}`);
+    setEmployee(response.data);
+  };
   const postClientes = async () => {
     try {
-      await axios.post(
-        `${URL}/employees/new-employee`,
+      await axios.put(
+        `${URL}/employees/${id}`,
         employee
-        //  {
-        //   headers: {
-        //     Authorization: `Bearer ${token}`,
-        //   },
-        // }
       );
-      Swal.fire("OK", "El cliente se agregó correctamente", "success");
+      Swal.fire("OK", "Cambios guardados correctamente", "success");
       navigate("/employees");
     } catch (error) {
       console.log(error);
@@ -48,6 +50,7 @@ export const NewEmployee = () => {
   };
   useEffect(() => {
     getDeps();
+    getEmployee();
   }, []);
 
   const handleSubmit = (e) => {
@@ -89,7 +92,7 @@ export const NewEmployee = () => {
   }
   return (
     <>
-      <h2>Nuevo Empleado</h2>
+      <h2>Editar Empleado</h2>
 
       <form id="form" onSubmit={handleSubmit}>
         <legend>Llena todos los campos</legend>
@@ -100,6 +103,7 @@ export const NewEmployee = () => {
             type="text"
             placeholder="Nombre Empleado"
             name="name"
+            value={employee.name}
             onChange={(e) => handleChange(e)}
           />
           {error.name && <p className="danger-p">{error.name}</p>}
@@ -111,6 +115,7 @@ export const NewEmployee = () => {
             type="text"
             placeholder="Apellido Empleado"
             name="lastname"
+            value={employee.lastname}
             onChange={(e) => handleChange(e)}
           />
           {error.lastname && <p className="danger-p">{error.lastname}</p>}
@@ -122,6 +127,7 @@ export const NewEmployee = () => {
             type="email"
             placeholder="Email Cliente"
             name="email"
+            value={employee.email}
             onChange={(e) => handleChange(e)}
           />
           {error.email && <p className="danger-p">{error.email}</p>}
@@ -133,6 +139,7 @@ export const NewEmployee = () => {
             type="text"
             placeholder="Teléfono Cliente"
             name="cellphone"
+            value={employee.cellphone}
             onChange={(e) => handleChange(e)}
           />
           {error.telefono && <p className="danger-p">{error.telefono}</p>}
@@ -140,7 +147,9 @@ export const NewEmployee = () => {
 
         <div className="campo">
           <label>Género:</label>
-          <select name="gender" id="" onChange={(e) => handleChange(e)}>
+          <select name="gender" id="" 
+          value={employee.gender}
+          onChange={(e) => handleChange(e)}>
             <option value="Masculine">Másculino</option>
             <option value="Female">Femenino</option>
           </select>
@@ -151,10 +160,11 @@ export const NewEmployee = () => {
           <select
             className="selectp"
             name="department"
+            value={employee.department.id}
             onChange={(e) => handleChange(e)}
             defaultValue={"DEFAULT"}
           >
-            <option value="DEFAULT" disabled></option>
+            <option value="DEFAULT" disabled>{employee.department.name}</option>
             {deps.length !== 0
               ? deps.map((dep) => 
                   <option value={dep._id} key={dep._id}>
@@ -169,7 +179,7 @@ export const NewEmployee = () => {
           <input
             type="submit"
             className="btn btn-azul"
-            value="Agregar Empleado"
+            value="Guardar Cambios"
             disabled={
               error.name || error.lastname || error.email || error.cellphone
                 ? true

@@ -2,9 +2,9 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-export const EmployeeCard = (employees) => {
+export const DepartmentCard = (department) => {
   const navigate = useNavigate();
-  const { id, name, lastname, cellphone, email, gender, department } = employees;
+  const { id, name } = department;
 
   const URL = "http://localhost:3000";
   const token = localStorage.getItem("token");
@@ -12,7 +12,7 @@ export const EmployeeCard = (employees) => {
   const handleDelete = async (id) => {
     Swal.fire({
       title: "Estás seguro?",
-      text: "El Empleado se eliminará!",
+      text: "El Departamento se eliminará!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -21,13 +21,13 @@ export const EmployeeCard = (employees) => {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`${URL}/employees/${id}`, {
+        axios.delete(`${URL}/departments/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        navigate("/employees")
-        Swal.fire("Eliminado!", "El Empleado ha sido eliminado.", "success");
+        navigate("/departments")
+        Swal.fire("Eliminado!", "El Departamento ha sido eliminado.", "success");
       }
     });
   };
@@ -37,17 +37,13 @@ export const EmployeeCard = (employees) => {
       <li className="cliente" key={id}>
         <div className="info-cliente">
           <p className="nombre">
-            {name} {lastname}
+            {name} 
           </p>
-          <p>{email}</p>
-          <p>Tel: {cellphone}</p>
-          <p>Género: {gender}</p>
-          <p>Departamento: {department}</p>
         </div>
         <div className="acciones">
-          <Link to={`/update-empleado/${id}`} className="btn btn-azul">
+          <Link to={`/update-dep/${id}`} className="btn btn-azul">
             <i className="fas fa-pen-alt"></i>
-            Editar Empleado
+            Editar Departamento
           </Link>
 
           
@@ -57,7 +53,7 @@ export const EmployeeCard = (employees) => {
             onClick={() => handleDelete(id)}
           >
             <i className="fas fa-times"></i>
-            Eliminar Empleado
+            Eliminar Departamento
           </button>
         </div>
       </li>
